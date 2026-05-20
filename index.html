@@ -10,7 +10,7 @@
  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
  <style>
   *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#fff;--bg2:#f8fafc;--bg3:#f1f5f9;--bdr:#e2e8f0;--txt:#0f172a;--txt2:#475569;--txt3:#94a3b8;--pri:#0284c7;--pri2:#e0f2fe;--acc:#0369a1;--vio:#7c3aed;--vio2:#ede9fe;--eme:#059669;--eme2:#d1fae5}
+:root{--bg:#fff;--bg2:#f8fafc;--bg3:#f1f5f9;--bdr:#e2e8f0;--txt:#0f172a;--txt2:#475569;--txt3:#94a3b8;--pri:#0284c7;--pri2:#e0f2fe;--acc:#0369a1;--vio:#7c3aed;--vio2:#ede9fe;--eme:#059669;--eme2:#d1fae5;--err:#ef4444;--err2:#fee2e2}
 body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased}
 .c{max-width:1100px;margin:0 auto;padding:0 24px}
 header{padding:20px 0;border-bottom:1px solid var(--bdr);position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);z-index:100}
@@ -81,7 +81,43 @@ footer a{color:var(--pri);text-decoration:none;font-weight:500}
 footer a:hover{text-decoration:underline}
 @media(max-width:768px){.ag{grid-template-columns:1fr}.fg,.tg{grid-template-columns:1fr}.nl{display:none}.hero{padding:60px 0 40px}}
 @media(max-width:480px){.ha{flex-direction:column;align-items:center}.btn{width:100%;justify-content:center}}
- </style>
+ 
+.sim{background:var(--bg2);border:2px solid var(--pri);border-radius:16px;padding:32px;margin-top:40px}
+.sim-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.sim h3{font-size:1.2rem;font-weight:700;color:var(--pri)}
+.sim-badge{display:inline-flex;padding:4px 12px;background:var(--pri);color:#fff;border-radius:100px;font-size:.75rem;font-weight:700}
+.sim-btn{background:var(--pri);color:#fff;padding:12px 24px;border:none;border-radius:10px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
+.sim-btn:hover{background:var(--acc);transform:translateY(-1px)}
+.sim-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.log{background:#0f172a;border-radius:10px;padding:16px;font-family:'Courier New',monospace;font-size:.8rem;color:#4ade80;min-height:120px;max-height:200px;overflow-y:auto}
+.log-line{margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.log-line .ok{color:#4ade80;font-weight:700}
+.log-line .err{color:#f87171;font-weight:700}
+.log-line .warn{color:#fbbf24;font-weight:700}
+.log-line .info{color:#60a5fa}
+.log-line .pending{color:#94a3b8}
+.log-arrow{color:#60a5fa;margin:0 4px}
+.hitl-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
+.hitl-modal{background:#fff;border-radius:16px;max-width:540px;width:100%;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.hitl-title{font-size:1.2rem;font-weight:700;color:var(--err);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.hitl-sub{margin-bottom:20px;font-size:.9rem;color:var(--txt2)}
+.hitl-dispute{background:var(--err2);border:1px solid var(--err);border-radius:12px;padding:16px;margin-bottom:20px}
+.hitl-dispute h4{font-size:.9rem;font-weight:700;color:var(--err);margin-bottom:12px}
+.dispute-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(239,68,68,.15)}
+.dispute-row:last-child{border-bottom:none}
+.dispute-row span:first-child{color:var(--txt2);font-size:.85rem}
+.dispute-row span:last-child{font-weight:700;font-size:.9rem}
+.dispute-row .mismatch{color:var(--err);text-decoration:line-through}
+.hitl-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hitl-btn{flex:1;min-width:180px;padding:12px 16px;border-radius:10px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;transition:all .2s}
+.hitl-btn.approve{background:var(--eme);color:#fff}
+.hitl-btn.approve:hover{background:#047857}
+.hitl-btn.dispute{background:#fff;color:var(--err);border:2px solid var(--err)}
+.hitl-btn.dispute:hover{background:var(--err2)}
+.json-output{background:#0f172a;border-radius:10px;padding:20px;margin-top:20px;overflow-x:auto}
+.json-output pre{font-family:'Courier New',monospace;font-size:.8rem;color:#4ade80;margin:0;white-space:pre-wrap;word-break:break-all}
+.json-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--eme);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+@media(max-width:768px){.sim-hdr{flex-direction:column;align-items:flex-start}.hitl-actions{flex-direction:column}.hitl-btn{width:100%}}</style>
 </head>
 <body>
  <header>
@@ -192,7 +228,48 @@ footer a:hover{text-decoration:underline}
        <p class="note">Note: ERP integration (SAP / Oracle) is simulated at this stage. Live ERP sync will be enabled in Phase 2 via SAP BAPI or Oracle REST APIs.</p>
      </div>
    </section>
-   <section class="s fea" id="features">
+   
+   <section class="s" id="simulator">
+     <div class="c">
+       <p class="sl" style="text-align:center">Live Prototype</p>
+       <h2 class="st" style="text-align:center">Interactive LedgerForce Simulator</h2>
+       <div class="sim">
+         <div class="sim-hdr">
+           <h3>🤖 Live Prototype Simulator</h3>
+           <span class="sim-badge">HITL READY</span>
+         </div>
+         <div id="log" class="log">
+           <div class="log-line"><span class="pending">▶ Awaiting input — click the button below to ingest a sample invoice</span></div>
+         </div>
+         <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+           <button class="sim-btn" id="ingestBtn" onclick="runSimulation()">📄 Ingest Sample Cross-Border Invoice</button>
+           <button class="sim-btn" style="background:var(--bg3);color:var(--txt2);border:1px solid var(--bdr)" onclick="resetSim()">🔄 Reset</button>
+         </div>
+       </div>
+       <div id="hitlOverlay" class="hitl-overlay" style="display:none">
+         <div class="hitl-modal">
+           <div class="hitl-title">⚠️ Human-in-the-Loop Approval Required</div>
+           <p class="hitl-sub">Step 3 triggered an FX exception during 3-Way Match. Review the discrepancy below and take action.</p>
+           <div class="hitl-dispute">
+             <h4>💱 Currency Mismatch Detected</h4>
+             <div class="dispute-row"><span>Invoice Amount:</span><span>$10,500 USD</span></div>
+             <div class="dispute-row"><span>PO Amount:</span><span class="mismatch">€9,200 EUR</span></div>
+             <div class="dispute-row"><span>FX Rate Used:</span><span style="color:var(--err)">0.88 (expired — 90 days old)</span></div>
+             <div class="dispute-row"><span>Converted Delta:</span><span style="color:var(--err)">+$1,904 USD overage</span></div>
+           </div>
+           <div class="hitl-actions">
+             <button class="hitl-btn approve" onclick="hitlApprove()">✅ Approve Override (Manual Rate Update)</button>
+             <button class="hitl-btn dispute" onclick="hitlDispute()">🚨 Trigger Vendor Dispute</button>
+           </div>
+         </div>
+       </div>
+       <div id="jsonOutput" class="json-output" style="display:none">
+         <div class="json-label">✅ ERP-Ready JSON Payload</div>
+         <pre id="jsonContent"></pre>
+       </div>
+     </div>
+   </section>
+<section class="s fea" id="features">
      <div class="c">
        <p class="sl" style="text-align:center">Core Capabilities</p>
        <h2 class="st" style="text-align:center">Enterprise-Grade FinOps Automation</h2>
@@ -206,3 +283,97 @@ footer a:hover{text-decoration:underline}
            <div class="fi v">⚡</div>
            <h3>3-Way Match Engine</h3>
            <p>Automated price, quantity & FX matching with exception flagging
+<script>
+var step=0;
+function log(msg){
+  var d=document.getElementById('log'),m=document.createElement('div');m.className='log-line';m.innerHTML=msg;d.appendChild(m);d.scrollTop=d.scrollHeight;
+}
+function runSimulation(){
+  if(step>0)return;
+  step=1;document.getElementById('ingestBtn').disabled=true;
+  log('<span class="pending">▶ [<span class="info">Step 1</span>] Parsing PDF via OpenClaw Engine...</span>');
+  setTimeout(function(){
+    log('[<span class="ok">✓ OK</span>] Structured text matrix extracted — 12 line items detected');
+    log('<span class="info">→</span>');
+    step=2;
+    log('<span class="pending">▶ [<span class="info">Step 2</span>] Mapping line items to SKUs...</span>');
+    setTimeout(function(){
+      log('[<span class="ok">✓ OK</span>] 12 items aligned to 8 unique SKUs');
+      log('<span class="info">→</span>');
+      step=3;
+      log('<span class="pending">▶ [<span class="info">Step 3</span>] Executing 3-Way Match (Price / FX)...</span>');
+      setTimeout(function(){
+        log('[<span class="err">⚠ EXCEPTION TRIGGERED</span>] Currency mismatch: Invoice USD vs PO EUR — FX rate expired (90 days)');
+        log('<span class="info">→</span>');
+        document.getElementById('hitlOverlay').style.display='flex';
+      },1200);
+    },1200);
+  },1500);
+}
+function hitlApprove(){
+  document.getElementById('hitlOverlay').style.display='none';
+  log('<span class="warn">▶ [HITL Step 4] Human review — Manual rate update @ 1.08 EUR/USD — Override approved</span>');
+  log('<span class="info">→</span>');
+  setTimeout(function(){
+    log('<span class="pending">▶ [<span class="info">Step 5</span>] Formatting and compliance check...</span>');
+    setTimeout(function(){
+      log('[<span class="ok">✓ OK</span>] Verified JSON schema for ERP — all compliance gates passed');
+      log('<span class="info">→</span>');
+      step=6;
+      log('<span class="warn">▶ [HITL Step 6] Senior Controller payment release pending...</span>');
+      setTimeout(function(){
+        log('[<span class="ok">✓ DONE</span>] <strong>Final ledger update complete</strong> — Approved via manual rate override');
+        showJson('override');
+        document.getElementById('ingestBtn').disabled=false;
+        step=0;
+      },1000);
+    },1000);
+  },800);
+}
+function hitlDispute(){
+  document.getElementById('hitlOverlay').style.display='none';
+  log('<span class="err">▶ [HITL Step 4] Vendor dispute initiated — Invoice flagged for re-evaluation</span>');
+  log('<span class="info">→</span>');
+  setTimeout(function(){
+    log('<span class="pending">▶ [<span class="info">Step 5</span>] Formatting and compliance check...</span>');
+    setTimeout(function(){
+      log('[<span class="ok">✓ OK</span>] Verified JSON schema for ERP — dispute flag attached');
+      log('<span class="info">→</span>');
+      step=6;
+      log('<span class="pending">▶ [<span class="info">Step 6</span>] Final ledger update — DISPUTE PENDING...</span>');
+      setTimeout(function(){
+        log('[<span class="err">⚠ BLOCKED</span>] <strong>Payment blocked — Vendor Dispute Case opened</strong> — Case ID: VDC-2026-0512');
+        showJson('dispute');
+        document.getElementById('ingestBtn').disabled=false;
+        step=0;
+      },1000);
+    },1000);
+  },800);
+}
+function showJson(action){
+  var payload={
+    invoice:{id:"INV-2026-0512",vendor:"Acme GmbH",currency:"USD",amount:10500,fxRate:{used:0.88,expired:true},lineItems:[{sku:"SVC-001",description:"Cloud Services Q1",amount:5200},{sku:"SVC-002",description:"Data Storage Overage",amount:5300}]},
+    po:{id:"PO-2026-0201",currency:"EUR",amount:9200,items:[{sku:"SVC-001",amount:4600},{sku:"SVC-002",amount:4600}]}
+  };
+  if(action==='override'){
+    payload.decision={action:"APPROVED",method:"Manual Rate Override",newFxRate:1.08,approvedBy:"Senior Controller",approvedAt:"2026-05-20T11:42:00Z"};
+    payload.status="PAYMENT_APPROVED";
+  } else {
+    payload.decision={action:"DISPUTE_OPENED",caseId:"VDC-2026-0512",initiatedAt:"2026-05-20T11:42:00Z",reason:"Currency mismatch — FX rate expired"};
+    payload.status="PAYMENT_BLOCKED";
+  }
+  payload.audit={matchedAt:"2026-05-20T11:42:00Z",erpReady:true,schemaVersion:"1.0"};
+  document.getElementById('jsonContent').textContent=JSON.stringify(payload,null,2);
+  document.getElementById('jsonOutput').style.display='block';
+}
+function resetSim(){
+  step=0;
+  document.getElementById('log').innerHTML='<div class="log-line"><span class="pending">▶ Awaiting input — click the button below to ingest a sample invoice</span></div>';
+  document.getElementById('jsonOutput').style.display='none';
+  document.getElementById('hitlOverlay').style.display='none';
+  document.getElementById('ingestBtn').disabled=false;
+}
+</script>
+
+</body>
+</html>
