@@ -1,379 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Team 18 - LedgerForce AI</title>
- <meta name="description" content="AI-Powered Invoice Matching for Enterprise Finance">
- <link rel="preconnect" href="https://fonts.googleapis.com">
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
- <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#fff;--bg2:#f8fafc;--bg3:#f1f5f9;--bdr:#e2e8f0;--txt:#0f172a;--txt2:#475569;--txt3:#94a3b8;--pri:#0284c7;--pri2:#e0f2fe;--acc:#0369a1;--vio:#7c3aed;--vio2:#ede9fe;--eme:#059669;--eme2:#d1fae5;--err:#ef4444;--err2:#fee2e2}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased}
-.c{max-width:1100px;margin:0 auto;padding:0 24px}
-header{padding:20px 0;border-bottom:1px solid var(--bdr);position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);z-index:100}
-.hi{display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1rem;color:var(--txt);text-decoration:none}
-.li{width:32px;height:32px;background:var(--pri);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
-.nl{display:flex;gap:28px}
-.nl a{color:var(--txt2);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
-.nl a:hover{color:var(--txt)}
-.hero{padding:80px 0 60px;text-align:center}
-.hc{max-width:720px;margin:0 auto}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--pri2);border:1px solid rgba(2,132,199,.15);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--pri);margin-bottom:24px}
-h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.15;margin-bottom:20px}
-.hd{font-size:1.15rem;color:var(--txt2);max-width:560px;margin:0 auto 36px}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LedgerGrid — AI-Powered Invoice Matching</title>
+<meta name="description" content="LedgerGrid: Automated 3-way invoice matching, FX risk mitigation and cross-border processing for enterprise finance teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--white:#ffffff;--bg:#f8fafc;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--blue:#1d4ed8;--blue-light:#dbeafe;--blue-dark:#1e40af;--green:#059669;--green-light:#d1fae5;--red:#dc2626;--red-light:#fee2e2;--shadow:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.04);--shadow-lg:0 4px 20px rgba(0,0,0,.08),0 12px 40px rgba(0,0,0,.05)}
+body{font-family:Inter,system-ui,sans-serif;background:var(--white);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.c{max-width:1080px;margin:0 auto;padding:0 32px}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.hdr-inner{display:flex;justify-content:space-between;align-items:center;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.95rem;color:var(--text);text-decoration:none}
+.logo-icon{width:34px;height:34px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.85rem;letter-spacing:-0.5px}
+.nav{display:flex;gap:28px;align-items:center}
+.nav a{color:var(--text2);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .2s}
+.nav a:hover{color:var(--blue)}
+.nav-cta{background:var(--blue);color:#fff!important;padding:8px 18px;border-radius:8px;font-weight:600;font-size:.875rem!important;transition:background .2s,transform .15s}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180deg,#fff 0%,var(--bg) 100%)}
+.hero-inner{max-width:680px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:var(--blue-light);border:1px solid rgba(29,78,216,.15);border-radius:100px;font-size:.75rem;font-weight:600;color:var(--blue);margin-bottom:28px}
+.hero h1{font-size:clamp(2rem,4.5vw,2.75rem);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin-bottom:16px;color:var(--text)}
+.hero p{font-size:1.05rem;color:var(--text2);max-width:520px;margin:0 auto 36px;line-height:1.65}
 .ha{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;font-size:.95rem;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
-.bp{background:var(--pri);color:#fff}
-.bp:hover{background:var(--acc);transform:translateY(-1px);box-shadow:0 4px 12px rgba(2,132,199,.3)}
-.bs{background:var(--bg3);color:var(--txt);border:1px solid var(--bdr)}
-.bs:hover{border-color:var(--pri);background:var(--pri2)}
-hr{border:none;border-top:1px solid var(--bdr);margin:0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:10px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.bp{background:var(--blue);color:#fff}
+.bp:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 4px 14px rgba(29,78,216,.3)}
+.bs{background:var(--white);color:var(--text);border:1.5px solid var(--border)}
+.bs:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
 .s{padding:72px 0}
-.sl{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--pri);margin-bottom:10px}
-.st{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;margin-bottom:16px}
-.ag{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.at p{font-size:1.05rem;color:var(--txt2);margin-bottom:16px}
-.ag2{display:flex;justify-content:center}
-.ac{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;padding:32px;min-width:280px;text-align:center}
-.ac h3{font-size:3rem;font-weight:800;color:var(--pri);margin-bottom:4px}
-.ac p{font-size:.9rem;color:var(--txt2)}
-.ac .sub{margin-top:8px;font-size:.8rem;color:var(--txt3)}
-.fea{background:var(--bg2)}
-.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
-.fc{background:var(--bg);border:1px solid var(--bdr);border-radius:14px;padding:28px;transition:all .25s}
-.fc:hover{border-color:rgba(2,132,199,.3);box-shadow:0 4px 20px rgba(0,0,0,.06);transform:translateY(-3px)}
-.fi{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px}
-.fi.b{background:var(--pri2)}
-.fi.v{background:var(--vio2)}
-.fi.e{background:var(--eme2)}
-.fc h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
-.fc p{font-size:.9rem;color:var(--txt2);line-height:1.6}
-.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
-.tc{background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:28px}
-.tc h3{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt3);margin-bottom:6px}
-.tc h4{font-size:1.05rem;font-weight:700;margin-bottom:12px}
-.tc p{font-size:.9rem;color:var(--txt2)}
-.cta{background:var(--pri);color:#fff}
-.ctai{text-align:center;max-width:560px;margin:0 auto}
-.cta h2{font-size:1.8rem;font-weight:700;margin-bottom:12px}
-.wf{overflow-x:auto;margin-top:40px}
-.wf table{width:100%;border-collapse:collapse;background:var(--bg2);border-radius:14px;overflow:hidden;border:1px solid var(--bdr)}
-.wf th,.wf td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);font-size:.9rem}
-.wf th{background:var(--pri);color:#fff;font-weight:600;text-transform:uppercase;font-size:.7rem;letter-spacing:1px}
+.s+ .s{border-top:1px solid var(--border)}
+.eyebrow{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--blue);margin-bottom:8px}
+.section-title{font-size:clamp(1.5rem,2.5vw,1.85rem);font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:12px}
+.section-sub{font-size:1rem;color:var(--text2);max-width:560px;line-height:1.65}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;margin-top:36px}
+.about-text p{font-size:1.05rem;color:var(--text2);line-height:1.7;margin-bottom:24px}
+.tag-row{display:flex;gap:10px;flex-wrap:wrap}
+.tag{padding:6px 14px;border-radius:8px;font-size:.8rem;font-weight:600;border:1px solid}
+.tag.ai{background:#d1fae5;color:#059669;border-color:#6ee7b7}
+.tag.ent{background:var(--blue-light);color:var(--blue);border-color:#bfdbfe}
+.tag.open{background:#f3e8ff;color:#7c3aed;border-color:#ddd6fe}
+.about-visual{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border-radius:16px;padding:32px;border:1px solid #bfdbfe}
+.about-visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.av-box{background:#fff;border-radius:10px;padding:16px;text-align:center;border:1px solid var(--border)}
+.av-box .icon{font-size:1.6rem;margin-bottom:6px}
+.av-box .label{font-size:.75rem;font-weight:600;color:var(--text2)}
+.workflow-section{background:var(--bg)}
+.workflow-intro{text-align:center;margin-bottom:40px}
+.workflow-intro .section-sub{margin:0 auto}
+.wf{overflow-x:auto;margin-top:36px;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.wf table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden}
+.wf th,.wf td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--border);font-size:.85rem}
+.wf th{background:var(--blue);color:#fff;font-weight:600;text-transform:uppercase;font-size:.68rem;letter-spacing:1.2px;padding:14px 18px}
 .wf tr:last-child td{border-bottom:none}
-.wf tr:hover{background:rgba(2,132,199,.03)}
-.wf td strong{color:var(--pri)}
-.wf .badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:.75rem;font-weight:700}
-.wf .badge.yes{background:rgba(248,113,113,.1);color:#f87171;border:1px solid #f87171}
-.wf .badge.no{background:rgba(74,222,128,.1);color:#16a34a;border:1px solid #16a34a}
-.wf .badge.hotl{background:rgba(167,139,250,.1);color:#7c3aed;border:1px solid #7c3aed}
-.note{font-size:.85rem;color:var(--txt3);margin-top:16px;padding:12px 16px;background:var(--bg2);border-left:3px solid var(--pri);border-radius:0 8px 8px 0}
-.cta p{opacity:.85;margin-bottom:32px;font-size:1rem}
-.bw{background:#fff;color:var(--pri);padding:12px 28px;border-radius:10px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;border:none;cursor:pointer;font-size:.95rem}
-.bw:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
-footer{padding:32px 0;border-top:1px solid var(--bdr);text-align:center}
-footer p{color:var(--txt3);font-size:.85rem}
-footer a{color:var(--pri);text-decoration:none;font-weight:500}
-footer a:hover{text-decoration:underline}
-@media(max-width:768px){.ag{grid-template-columns:1fr}.fg,.tg{grid-template-columns:1fr}.nl{display:none}.hero{padding:60px 0 40px}}
-@media(max-width:480px){.ha{flex-direction:column;align-items:center}.btn{width:100%;justify-content:center}}
- 
-.sim{background:var(--bg2);border:2px solid var(--pri);border-radius:16px;padding:32px;margin-top:40px}
+.wf tr:hover td{background:#f8fafc}
+.wf td strong{color:var(--blue);font-weight:600}
+.step-num{width:26px;height:26px;background:var(--blue);color:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;margin-right:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:.72rem;font-weight:700}
+.badge.no{background:#d1fae5;color:#059669;border:1px solid #6ee7b7}
+.badge.yes{background:var(--blue-light);color:var(--blue);border:1px solid #bfdbfe}
+.note{font-size:.82rem;color:var(--text3);margin-top:20px;padding:14px 18px;background:#fff;border-left:3px solid var(--blue);border-radius:0 8px 8px 0}
+.sim{background:linear-gradient(135deg,#eff6ff 0%,#f8fafc 100%);border:1.5px solid #bfdbfe;border-radius:16px;padding:36px;margin-top:36px}
 .sim-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
-.sim h3{font-size:1.2rem;font-weight:700;color:var(--pri)}
-.sim-badge{display:inline-flex;padding:4px 12px;background:var(--pri);color:#fff;border-radius:100px;font-size:.75rem;font-weight:700}
-.sim-btn{background:var(--pri);color:#fff;padding:12px 24px;border:none;border-radius:10px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
-.sim-btn:hover{background:var(--acc);transform:translateY(-1px)}
-.sim-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.log{background:#0f172a;border-radius:10px;padding:16px;font-family:'Courier New',monospace;font-size:.8rem;color:#4ade80;min-height:120px;max-height:200px;overflow-y:auto}
+.sim h3{font-size:1.1rem;font-weight:700;color:var(--blue)}
+.sim-badge{display:inline-flex;padding:4px 12px;background:var(--blue);color:#fff;border-radius:100px;font-size:.72rem;font-weight:700}
+.log{background:#0f172a;border-radius:10px;padding:16px;font-family:'Courier New',monospace;font-size:.78rem;color:#4ade80;min-height:110px;max-height:180px;overflow-y:auto;margin-bottom:20px}
 .log-line{margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .log-line .ok{color:#4ade80;font-weight:700}
 .log-line .err{color:#f87171;font-weight:700}
 .log-line .warn{color:#fbbf24;font-weight:700}
 .log-line .info{color:#60a5fa}
 .log-line .pending{color:#94a3b8}
-.log-arrow{color:#60a5fa;margin:0 4px}
-.hitl-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
-.hitl-modal{background:#fff;border-radius:16px;max-width:540px;width:100%;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.hitl-title{font-size:1.2rem;font-weight:700;color:var(--err);margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.hitl-sub{margin-bottom:20px;font-size:.9rem;color:var(--txt2)}
-.hitl-dispute{background:var(--err2);border:1px solid var(--err);border-radius:12px;padding:16px;margin-bottom:20px}
-.hitl-dispute h4{font-size:.9rem;font-weight:700;color:var(--err);margin-bottom:12px}
-.dispute-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(239,68,68,.15)}
-.dispute-row:last-child{border-bottom:none}
-.dispute-row span:first-child{color:var(--txt2);font-size:.85rem}
-.dispute-row span:last-child{font-weight:700;font-size:.9rem}
-.dispute-row .mismatch{color:var(--err);text-decoration:line-through}
-.hitl-actions{display:flex;gap:12px;flex-wrap:wrap}
-.hitl-btn{flex:1;min-width:180px;padding:12px 16px;border-radius:10px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;transition:all .2s}
-.hitl-btn.approve{background:var(--eme);color:#fff}
+.sim-actions{display:flex;gap:10px;flex-wrap:wrap}
+.sim-btn{background:var(--blue);color:#fff;padding:11px 22px;border:none;border-radius:9px;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .2s}
+.sim-btn:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.sim-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.sim-btn.secondary{background:#fff;color:var(--text);border:1.5px solid var(--border)}
+.sim-btn.secondary:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+.hitl-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
+.hitl-modal{background:#fff;border-radius:16px;max-width:500px;width:100%;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.hitl-title{font-size:1.15rem;font-weight:800;color:var(--red);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.hitl-sub{font-size:.875rem;color:var(--text2);margin-bottom:20px;line-height:1.6}
+.hitl-dispute{background:var(--red-light);border:1px solid #fca5a5;border-radius:12px;padding:16px;margin-bottom:20px}
+.hitl-dispute h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:14px}
+.dr{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.1)}
+.dr:last-child{border-bottom:none}
+.dr span:first-child{color:var(--text2);font-size:.82rem}
+.dr span:last-child{font-weight:700;font-size:.85rem}
+.dr .mismatch{color:var(--red);text-decoration:line-through;font-weight:400}
+.hitl-actions{display:flex;gap:10px;flex-wrap:wrap}
+.hitl-btn{flex:1;min-width:170px;padding:12px 16px;border-radius:9px;font-weight:700;font-size:.85rem;cursor:pointer;border:none;transition:all .2s}
+.hitl-btn.approve{background:var(--green);color:#fff}
 .hitl-btn.approve:hover{background:#047857}
-.hitl-btn.dispute{background:#fff;color:var(--err);border:2px solid var(--err)}
-.hitl-btn.dispute:hover{background:var(--err2)}
-.json-output{background:#0f172a;border-radius:10px;padding:20px;margin-top:20px;overflow-x:auto}
-.json-output pre{font-family:'Courier New',monospace;font-size:.8rem;color:#4ade80;margin:0;white-space:pre-wrap;word-break:break-all}
-.json-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--eme);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-@media(max-width:768px){.sim-hdr{flex-direction:column;align-items:flex-start}.hitl-actions{flex-direction:column}.hitl-btn{width:100%}}</style>
+.hitl-btn.dispute{background:#fff;color:var(--red);border:2px solid var(--red)}
+.hitl-btn.dispute:hover{background:var(--red-light)}
+.json-output{background:#0f172a;border-radius:10px;padding:18px;margin-top:16px;overflow-x:auto}
+.json-output pre{font-family:'Courier New',monospace;font-size:.75rem;color:#4ade80;margin:0;white-space:pre-wrap;word-break:break-all}
+.json-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#4ade80;margin-bottom:8px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+.fc{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;transition:all .25s}
+.fc:hover{border-color:rgba(29,78,216,.25);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.fi{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:14px}
+.fi.blue{background:var(--blue-light)}
+.fi.green{background:var(--green-light)}
+.fi.purple{background:#f3e8ff}
+.fc h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.fc p{font-size:.85rem;color:var(--text2);line-height:1.65}
+.cta-section{background:var(--blue);color:#fff;text-align:center;padding:80px 0}
+.cta-section h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:12px;letter-spacing:-.02em}
+.cta-section p{opacity:.8;margin-bottom:32px;font-size:1rem}
+.bw{background:#fff;color:var(--blue);padding:13px 28px;border-radius:10px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;font-size:.9rem}
+.bw:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+footer{padding:28px 0;border-top:1px solid var(--border);text-align:center}
+footer p{color:var(--text3);font-size:.8rem}
+footer a{color:var(--blue);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+@media(max-width:768px){.hdr-inner{flex-direction:column;height:auto;padding:16px 0;gap:12px}.nav{gap:20px}.about-grid{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr 1fr}.hero{padding:60px 0 50px}.s{padding:52px 0}}
+@media(max-width:520px){.features-grid{grid-template-columns:1fr}.ha{flex-direction:column;align-items:center}.btn{width:100%;justify-content:center}.nav{gap:16px}.nav a{font-size:.8rem}}
+</style>
 </head>
 <body>
- <header>
-   <div class="c hi">
-     <a href="#" class="logo"><div class="li">🤖</div><span>Team 18 - LedgerForce AI</span></a>
-     <nav class="nl">
-       <a href="#about">About</a>
-       <a href="#workflow">Workflow</a>
-       <a href="#features">Features</a>
-       <a href="#team">Team</a>
-       <a href="https://github.com/DigitalCoa-ch/ai-native-team-18" target="_blank">GitHub</a>
-     </nav>
-   </div>
- </header>
- <main>
-   <section class="hero">
-     <div class="c hc">
-       <div class="badge">
-         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-         AI Native Enterprise Week 2026
-       </div>
-       <h1>AI-Powered Invoice Matching for Enterprise Finance</h1>
-       <p class="hd">Automated 3-way matching, FX risk mitigation & cross-border invoice processing</p>
-       <div class="ha">
-         <a href="https://github.com/DigitalCoa-ch/ai-native-team-18" target="_blank" class="btn bp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> View on GitHub</a>
-         <a href="#about" class="btn bs">Learn More</a>
-       </div>
-     </div>
-   </section>
-   <hr>
-   <section class="s" id="about">
-     <div class="c">
-       <p class="sl">About</p>
-       <h2 class="st">What is LedgerForce?</h2>
-       <div class="ag">
-         <div class="at">
-           <p>An AI-native FinOps engine that automates cross-border invoice matching, mitigates FX risk, and streamlines finance operations from ingestion to payment release.</p>
-           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-             <span class="badge" style="background:var(--eme2);color:var(--eme);border-color:var(--eme)">🤖 AI Native</span>
-             <span class="badge" style="background:var(--pri2);color:var(--pri);border-color:var(--pri)">🏢 Enterprise FinOps - Day 2 Project</span>
-             <span class="badge" style="background:var(--vio2);color:var(--vio);border-color:var(--vio)">⚡ OpenClaw Powered</span>
-           </div>
-         </div>
-       </div>
-     </div>
-   </section>
-   <section class="s fea" id="workflow">
-     <div class="c">
-       <p class="sl" style="text-align:center">Operational Process</p>
-       <h2 class="st" style="text-align:center">6-Step Invoice Matching Workflow</h2>
-       <div class="wf">
-         <table>
-           <thead>
-             <tr>
-               <th>Step</th>
-               <th>Trigger / Input</th>
-               <th>Action</th>
-               <th>Output</th>
-               <th>HITL</th>
-             </tr>
-           </thead>
-           <tbody>
-             <tr>
-               <td><strong>1</strong></td>
-               <td>Invoice received at ingestion endpoint</td>
-               <td>AI: Document parsing via OpenClaw</td>
-               <td>Structured text matrix extracted</td>
-               <td><span class="badge no">No</span></td>
-             </tr>
-             <tr>
-               <td><strong>2</strong></td>
-               <td>Structured data matrix</td>
-               <td>AI: Semantic line-item matching</td>
-               <td>Line items aligned to SKUs</td>
-               <td><span class="badge no">No</span></td>
-             </tr>
-             <tr>
-               <td><strong>3</strong></td>
-               <td>Aligned line items + Purchase Order</td>
-               <td>AI: 3-Way Match (Price / FX)</td>
-               <td>Matching status report</td>
-               <td><span class="badge no">No</span></td>
-             </tr>
-             <tr>
-               <td><strong>4</strong></td>
-               <td>Status reads Exception</td>
-               <td>Human: Controller discrepancy review</td>
-               <td>Override or dispute initiated</td>
-               <td><span class="badge yes">Yes (HITL)</span></td>
-             </tr>
-             <tr>
-               <td><strong>5</strong></td>
-               <td>Validated transaction payload</td>
-               <td>AI: Formatting & compliance check</td>
-               <td>Verified JSON schema for ERP</td>
-               <td><span class="badge no">No</span></td>
-             </tr>
-             <tr>
-               <td><strong>6</strong></td>
-               <td>Verified ERP payload</td>
-               <td>Human: Senior Controller payment release</td>
-               <td>Final ledger update</td>
-               <td><span class="badge hotl">Yes (HOTL)</span></td>
-             </tr>
-           </tbody>
-         </table>
-       </div>
-       <p class="note">Note: ERP integration (SAP / Oracle) is simulated at this stage. Live ERP sync will be enabled in Phase 2 via SAP BAPI or Oracle REST APIs.</p>
-     </div>
-   </section>
-   
-   <section class="s" id="simulator">
-     <div class="c">
-       <p class="sl" style="text-align:center">Live Prototype</p>
-       <h2 class="st" style="text-align:center">Interactive LedgerForce Simulator</h2>
-       <div class="sim">
-         <div class="sim-hdr">
-           <h3>🤖 Live Prototype Simulator</h3>
-           <span class="sim-badge">HITL READY</span>
-         </div>
-         <div id="log" class="log">
-           <div class="log-line"><span class="pending">▶ Awaiting input — click the button below to ingest a sample invoice</span></div>
-         </div>
-         <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-           <button class="sim-btn" id="ingestBtn" onclick="runSimulation()">📄 Ingest Sample Cross-Border Invoice</button>
-           <button class="sim-btn" style="background:var(--bg3);color:var(--txt2);border:1px solid var(--bdr)" onclick="resetSim()">🔄 Reset</button>
-         </div>
-       </div>
-       <div id="hitlOverlay" class="hitl-overlay" style="display:none">
-         <div class="hitl-modal">
-           <div class="hitl-title">⚠️ Human-in-the-Loop Approval Required</div>
-           <p class="hitl-sub">Step 3 triggered an FX exception during 3-Way Match. Review the discrepancy below and take action.</p>
-           <div class="hitl-dispute">
-             <h4>💱 Currency Mismatch Detected</h4>
-             <div class="dispute-row"><span>Invoice Amount:</span><span>$10,500 USD</span></div>
-             <div class="dispute-row"><span>PO Amount:</span><span class="mismatch">€9,200 EUR</span></div>
-             <div class="dispute-row"><span>FX Rate Used:</span><span style="color:var(--err)">0.88 (expired — 90 days old)</span></div>
-             <div class="dispute-row"><span>Converted Delta:</span><span style="color:var(--err)">+$1,904 USD overage</span></div>
-           </div>
-           <div class="hitl-actions">
-             <button class="hitl-btn approve" onclick="hitlApprove()">✅ Approve Override (Manual Rate Update)</button>
-             <button class="hitl-btn dispute" onclick="hitlDispute()">🚨 Trigger Vendor Dispute</button>
-           </div>
-         </div>
-       </div>
-       <div id="jsonOutput" class="json-output" style="display:none">
-         <div class="json-label">✅ ERP-Ready JSON Payload</div>
-         <pre id="jsonContent"></pre>
-       </div>
-     </div>
-   </section>
-<section class="s fea" id="features">
-     <div class="c">
-       <p class="sl" style="text-align:center">Core Capabilities</p>
-       <h2 class="st" style="text-align:center">Enterprise-Grade FinOps Automation</h2>
-       <div class="fg">
-         <div class="fc">
-           <div class="fi b">🚀</div>
-           <h3>AI Document Parsing</h3>
-           <p>Instantly extract and structure invoice data with OpenClaw intelligence</p>
-         </div>
-         <div class="fc">
-           <div class="fi v">⚡</div>
-           <h3>3-Way Match Engine</h3>
-           <p>Automated price, quantity & FX matching with exception flagging
-<script>
-var step=0;
-function log(msg){
-  var d=document.getElementById('log'),m=document.createElement('div');m.className='log-line';m.innerHTML=msg;d.appendChild(m);d.scrollTop=d.scrollHeight;
-}
-function runSimulation(){
-  if(step>0)return;
-  step=1;document.getElementById('ingestBtn').disabled=true;
-  log('<span class="pending">▶ [<span class="info">Step 1</span>] Parsing PDF via OpenClaw Engine...</span>');
-  setTimeout(function(){
-    log('[<span class="ok">✓ OK</span>] Structured text matrix extracted — 12 line items detected');
-    log('<span class="info">→</span>');
-    step=2;
-    log('<span class="pending">▶ [<span class="info">Step 2</span>] Mapping line items to SKUs...</span>');
-    setTimeout(function(){
-      log('[<span class="ok">✓ OK</span>] 12 items aligned to 8 unique SKUs');
-      log('<span class="info">→</span>');
-      step=3;
-      log('<span class="pending">▶ [<span class="info">Step 3</span>] Executing 3-Way Match (Price / FX)...</span>');
-      setTimeout(function(){
-        log('[<span class="err">⚠ EXCEPTION TRIGGERED</span>] Currency mismatch: Invoice USD vs PO EUR — FX rate expired (90 days)');
-        log('<span class="info">→</span>');
-        document.getElementById('hitlOverlay').style.display='flex';
-      },1200);
-    },1200);
-  },1500);
-}
-function hitlApprove(){
-  document.getElementById('hitlOverlay').style.display='none';
-  log('<span class="warn">▶ [HITL Step 4] Human review — Manual rate update @ 1.08 EUR/USD — Override approved</span>');
-  log('<span class="info">→</span>');
-  setTimeout(function(){
-    log('<span class="pending">▶ [<span class="info">Step 5</span>] Formatting and compliance check...</span>');
-    setTimeout(function(){
-      log('[<span class="ok">✓ OK</span>] Verified JSON schema for ERP — all compliance gates passed');
-      log('<span class="info">→</span>');
-      step=6;
-      log('<span class="warn">▶ [HITL Step 6] Senior Controller payment release pending...</span>');
-      setTimeout(function(){
-        log('[<span class="ok">✓ DONE</span>] <strong>Final ledger update complete</strong> — Approved via manual rate override');
-        showJson('override');
-        document.getElementById('ingestBtn').disabled=false;
-        step=0;
-      },1000);
-    },1000);
-  },800);
-}
-function hitlDispute(){
-  document.getElementById('hitlOverlay').style.display='none';
-  log('<span class="err">▶ [HITL Step 4] Vendor dispute initiated — Invoice flagged for re-evaluation</span>');
-  log('<span class="info">→</span>');
-  setTimeout(function(){
-    log('<span class="pending">▶ [<span class="info">Step 5</span>] Formatting and compliance check...</span>');
-    setTimeout(function(){
-      log('[<span class="ok">✓ OK</span>] Verified JSON schema for ERP — dispute flag attached');
-      log('<span class="info">→</span>');
-      step=6;
-      log('<span class="pending">▶ [<span class="info">Step 6</span>] Final ledger update — DISPUTE PENDING...</span>');
-      setTimeout(function(){
-        log('[<span class="err">⚠ BLOCKED</span>] <strong>Payment blocked — Vendor Dispute Case opened</strong> — Case ID: VDC-2026-0512');
-        showJson('dispute');
-        document.getElementById('ingestBtn').disabled=false;
-        step=0;
-      },1000);
-    },1000);
-  },800);
-}
-function showJson(action){
-  var payload={
-    invoice:{id:"INV-2026-0512",vendor:"Acme GmbH",currency:"USD",amount:10500,fxRate:{used:0.88,expired:true},lineItems:[{sku:"SVC-001",description:"Cloud Services Q1",amount:5200},{sku:"SVC-002",description:"Data Storage Overage",amount:5300}]},
-    po:{id:"PO-2026-0201",currency:"EUR",amount:9200,items:[{sku:"SVC-001",amount:4600},{sku:"SVC-002",amount:4600}]}
-  };
-  if(action==='override'){
-    payload.decision={action:"APPROVED",method:"Manual Rate Override",newFxRate:1.08,approvedBy:"Senior Controller",approvedAt:"2026-05-20T11:42:00Z"};
-    payload.status="PAYMENT_APPROVED";
-  } else {
-    payload.decision={action:"DISPUTE_OPENED",caseId:"VDC-2026-0512",initiatedAt:"2026-05-20T11:42:00Z",reason:"Currency mismatch — FX rate expired"};
-    payload.status="PAYMENT_BLOCKED";
-  }
-  payload.audit={matchedAt:"2026-05-20T11:42:00Z",erpReady:true,schemaVersion:"1.0"};
-  document.getElementById('jsonContent').textContent=JSON.stringify(payload,null,2);
-  document.getElementById('jsonOutput').style.display='block';
-}
-function resetSim(){
-  step=0;
-  document.getElementById('log').innerHTML='<div class="log-line"><span class="pending">▶ Awaiting input — click the button below to ingest a sample invoice</span></div>';
-  document.getElementById('jsonOutput').style.display='none';
-  document.getElementById('hitlOverlay').style.display='none';
-  document.getElementById('ingestBtn').disabled=false;
-}
-</script>
-
-</body>
-</html>
+<header>
+<div class="c hdr-inner">
+<a href="#" class="logo"><div class="logo-icon">LG</div><span>LedgerGrid</span></a>
+<nav class="nav">
+<a href="#about">About</a>
+<a href="#workflow">Workflow</a>
+<a href="#features">Features</a>
+<a href="https://github.com/DigitalCoa-ch/ai-native-team-18" target="_blank">GitHub</a>
+<a href="#simulator" class="nav-cta">Live Demo</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="c hero-inner">
+<div class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> AI Native Enterprise Week 2026</div>
+<h1>AI-Powered Invoice Matching for Enterprise Finance</h1>
+<p>Automated 3-way matching, FX risk mitigation and cross-border invoice processing — all in one intelligent platform.</p>
+<div class="ha">
+<a href="https://github.com/DigitalCoa-ch/ai-native-team-18" target="_blank" class="btn bp">View on GitHub</a>
+<a href="#about" class="btn bs">Learn More</a>
+</div>
+</div>
+</section>
+<section class="s" id="about">
+<div class="c">
+<div class="about-grid">
+<div class="about-text">
+<div class="eyebrow">About</div>
+<h2 class="section-title">What is LedgerGrid?</h2>
+<p>An AI-native FinOps engine that automates cross-border invoice matching, mitigates FX risk, and streamlines finance operations from ingestion to payment release.</p>
+<div class="tag-row">
+<span class="tag ai">AI Native</span>
+<span class="tag ent">Enterprise FinOps</span>
+<span class="tag open">OpenClaw Powered</span>
+</div>
+</div>
+<div class="about-visual">
+<div class="about-visual-grid">
+<div class="av-box"><div class="label">AI Native</div></div>
+<div class="av-box"><div class="label">FX Risk</div></div>
+<div class="av-box"><div class="label">3-Way Match</div></div>
